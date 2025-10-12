@@ -152,7 +152,7 @@ export default function Portfolio() {
               real problems for real people.
             </p>
             <p>
-              With a background in [your field], I've had the opportunity to work on diverse projects 
+              With a background in Data Engineering, I've had the opportunity to work on diverse projects 
               ranging from web applications to interactive experiences. I believe in the power of 
               simple, elegant solutions.
             </p>
