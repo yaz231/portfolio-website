@@ -54,15 +54,15 @@ export default function Portfolio() {
             beautiful digital experiences
           </p>
           <div className="flex justify-center gap-6 pt-4">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" 
+            <a href="https://www.linkedin.com/in/yazan-alatrach-98001b118/" target="_blank" rel="noopener noreferrer" 
                className="text-gray-600 hover:text-gray-900 transition">
               <Linkedin size={22} strokeWidth={1.5} />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
+            <a href="https://github.com/yaz231" target="_blank" rel="noopener noreferrer" 
                className="text-gray-600 hover:text-gray-900 transition">
               <Github size={22} strokeWidth={1.5} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" 
+            <a href="https://instagram.com/yazzz231" target="_blank" rel="noopener noreferrer" 
                className="text-gray-600 hover:text-gray-900 transition">
               <Instagram size={22} strokeWidth={1.5} />
             </a>
@@ -77,22 +77,22 @@ export default function Portfolio() {
           <div className="space-y-24">
             {[
               { 
-                title: 'Project One', 
-                description: 'A thoughtful exploration of user interface design and interaction patterns',
-                tags: ['Design', 'Development'],
-                link: 'https://example.com' 
+                title: 'BrewScout', 
+                description: 'A native iOS app that helps coffee enthusiasts discover and review local coffee shops with detailed insights beyond what traditional map apps offer. Users can search for coffee shops based on specific amenities (WiFi, seating, outlets, vibes) and contribute community-driven reviews with granular attribute ratings.',
+                tags: ['iOS', 'Swift', 'Mobile App'],
+                link: 'https://apps.apple.com/us/app/brewscout-coffee/id6744943538' 
               },
               { 
-                title: 'Project Two', 
-                description: 'Building accessible and responsive web experiences for modern users',
-                tags: ['Web Design', 'React'],
-                link: 'https://example.com' 
+                title: 'SaveSweida', 
+                description: 'A full-stack web application that streamlines constituent communication with government officials across multiple jurisdictions to advocate for humanitarian relief in Sweida, Syria.',
+                tags: ['Full-Stack', 'Web App', 'Social Impact'],
+                link: 'https://www.savesweida.com' 
               },
               { 
-                title: 'Project Three', 
-                description: 'Creative problem-solving through minimal and intentional design',
-                tags: ['UX', 'Product Design'],
-                link: 'https://example.com' 
+                title: 'Financial Analyzer', 
+                description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
+                tags: ['React', 'Data Visualization', 'Finance'],
+                link: 'https://financial-analyzer-lac.vercel.app' 
               },
             ].map((project, index) => (
               <div key={index} className="group">
