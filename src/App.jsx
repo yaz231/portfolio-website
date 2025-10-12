@@ -1,6 +1,36 @@
 import React, { useState } from 'react';
 import { Github, Linkedin, Instagram, ExternalLink, ArrowRight } from 'lucide-react';
 
+import brewscoutImage from './assets/images/projects/brewscout.png';
+import saveseweidaImage from './assets/images/projects/savesweida.png';
+import financialAnalyzerImage from './assets/images/projects/financial-analyzer.png';
+
+
+const projects = [
+  { 
+    title: 'BrewScout', 
+    description: 'A native iOS app that helps coffee enthusiasts discover and review local coffee shops with detailed insights beyond what traditional map apps offer. Users can search for coffee shops based on specific amenities (WiFi, seating, outlets, vibes) and contribute community-driven reviews with granular attribute ratings.',
+    tags: ['iOS', 'Swift', 'Mobile App'],
+    link: 'https://apps.apple.com/us/app/brewscout-coffee/id6744943538',
+    image: brewscoutImage
+  },
+  { 
+    title: 'SaveSweida', 
+    description: 'A full-stack web application that streamlines constituent communication with government officials across multiple jurisdictions to advocate for humanitarian relief in Sweida, Syria.',
+    tags: ['Full-Stack', 'Web App', 'Social Impact'],
+    link: 'https://www.savesweida.com',
+    image: saveseweidaImage
+  },
+  { 
+    title: 'Financial Analyzer', 
+    description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
+    tags: ['React', 'Data Visualization', 'Finance'],
+    link: 'https://financial-analyzer-lac.vercel.app',
+    image: financialAnalyzerImage
+  },
+];
+
+
 export default function Portfolio() {
   const [formData, setFormData] = useState({
     name: '',
@@ -36,7 +66,7 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <a href="#" className="text-lg font-medium tracking-tight">Yazan Alatrach</a>
           <div className="flex gap-8 text-sm">
-            <button onClick={() => scrollToSection('work')} className="hover:opacity-60 transition">Work</button>
+            <button onClick={() => scrollToSection('projects')} className="hover:opacity-60 transition">Projects</button>
             <button onClick={() => scrollToSection('about')} className="hover:opacity-60 transition">About</button>
             <button onClick={() => scrollToSection('contact')} className="hover:opacity-60 transition">Contact</button>
           </div>
@@ -70,38 +100,27 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Work Section */}
-      <section id="work" className="py-32 px-6">
+      {/* Projects Section */}
+      <section id="projects" className="py-32 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight">Selected Work</h2>
+          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight">Selected Projects</h2>
           <div className="space-y-24">
-            {[
-              { 
-                title: 'BrewScout', 
-                description: 'A native iOS app that helps coffee enthusiasts discover and review local coffee shops with detailed insights beyond what traditional map apps offer. Users can search for coffee shops based on specific amenities (WiFi, seating, outlets, vibes) and contribute community-driven reviews with granular attribute ratings.',
-                tags: ['iOS', 'Swift', 'Mobile App'],
-                link: 'https://apps.apple.com/us/app/brewscout-coffee/id6744943538' 
-              },
-              { 
-                title: 'SaveSweida', 
-                description: 'A full-stack web application that streamlines constituent communication with government officials across multiple jurisdictions to advocate for humanitarian relief in Sweida, Syria.',
-                tags: ['Full-Stack', 'Web App', 'Social Impact'],
-                link: 'https://www.savesweida.com' 
-              },
-              { 
-                title: 'Financial Analyzer', 
-                description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
-                tags: ['React', 'Data Visualization', 'Finance'],
-                link: 'https://financial-analyzer-lac.vercel.app' 
-              },
-            ].map((project, index) => (
+            {projects.map((project, index) => (
               <div key={index} className="group">
                 <a href={project.link} target="_blank" rel="noopener noreferrer" 
-                   className="block space-y-4 hover:opacity-60 transition-opacity duration-300">
+                  className="block space-y-4 hover:opacity-60 transition-opacity duration-300">
                   <div className="aspect-video bg-gray-100 rounded-sm overflow-hidden">
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      [Project Image]
-                    </div>
+                    {project.image ? (
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        [Project Image]
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-start justify-between">
                     <div className="space-y-2">
