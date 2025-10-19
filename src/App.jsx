@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Github, Linkedin, Instagram, ExternalLink, ArrowRight } from 'lucide-react';
 
-import brewscoutImage from './assets/images/projects/brewscout.png';
+import brewscout1 from './assets/images/projects/brewscout-1.png';
+import brewscout2 from './assets/images/projects/brewscout-2.png';
+import brewscout3 from './assets/images/projects/brewscout-3.png';
 import saveseweidaImage from './assets/images/projects/savesweida.png';
 import financialAnalyzerImage from './assets/images/projects/financial-analyzer.png';
 
@@ -12,7 +14,8 @@ const projects = [
     description: 'A native iOS app that helps coffee enthusiasts discover and review local coffee shops with detailed insights beyond what traditional map apps offer. Users can search for coffee shops based on specific amenities (WiFi, seating, outlets, vibes) and contribute community-driven reviews with granular attribute ratings.',
     tags: ['iOS', 'Swift', 'Mobile App'],
     link: 'https://apps.apple.com/us/app/brewscout-coffee/id6744943538',
-    image: brewscoutImage
+    // images come from https://mockuphone.com
+    images: [brewscout1, brewscout2, brewscout3]
   },
   { 
     title: 'SaveSweida', 
@@ -32,6 +35,7 @@ const projects = [
 
 
 export default function Portfolio() {
+  const accentColor = 'rgb(59, 130, 246)';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,12 +43,33 @@ export default function Portfolio() {
   });
   const [formStatus, setFormStatus] = useState('');
 
-  const handleSubmit = () => {
-    if (formData.name && formData.email && formData.message) {
-      setFormStatus('Thanks for reaching out! I\'ll get back to you soon.');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setFormStatus(''), 5000);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus('Sending...');
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'cc30097c-b0e2-4b93-a731-0b32d9e73a17',
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      
+      if (response.ok) {
+        setFormStatus('Thanks for reaching out! I\'ll get back to you soon.');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setFormStatus('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      setFormStatus('Failed to send. Please email me directly.');
     }
+    
+    setTimeout(() => setFormStatus(''), 5000);
   };
 
   const handleChange = (e) => {
@@ -103,38 +128,70 @@ export default function Portfolio() {
       {/* Projects Section */}
       <section id="projects" className="py-32 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight">Selected Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight">Projects</h2>
           <div className="space-y-24">
             {projects.map((project, index) => (
-              <div key={index} className="group">
-                <a href={project.link} target="_blank" rel="noopener noreferrer" 
-                  className="block space-y-4 hover:opacity-60 transition-opacity duration-300">
-                  <div className="aspect-video bg-gray-100 rounded-sm overflow-hidden">
-                    {project.image ? (
-                      <img 
-                        src={project.image} 
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        [Project Image]
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2">
-                      <h3 className="text-2xl font-light tracking-tight">{project.title}</h3>
-                      <p className="text-gray-600 max-w-xl">{project.description}</p>
-                      <div className="flex gap-3 pt-1">
-                        {project.tags.map((tag, i) => (
-                          <span key={i} className="text-xs text-gray-500 tracking-wide">{tag}</span>
-                        ))}
-                      </div>
+              <div key={index} className="space-y-4">
+                {/* Title first */}
+                <h3 className="text-2xl font-semibold tracking-tight">{project.title}</h3>
+                
+                {/* Non-clickable image */}
+                <div className={`${project.images ? 'aspect-[16/10]' : 'aspect-video'} bg-gradient-to-br from-gray-50 to-gray-100 rounded-sm overflow-hidden`}>
+                  {project.images ? (
+                    // Multiple images for BrewScout
+                    <div className="w-full h-full flex items-center justify-center gap-4 p-8">
+                      {project.images.map((img, idx) => (
+                        <img 
+                          key={idx}
+                          src={img} 
+                          alt={`${project.title} screenshot ${idx + 1}`}
+                          className="h-full w-auto object-contain drop-shadow-2xl"
+                        />
+                      ))}
                     </div>
-                    <ArrowRight size={20} className="mt-1 opacity-0 group-hover:opacity-100 transition-opacity" strokeWidth={1.5} />
+                  ) : project.image ? (
+                    // Single image for other projects
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      [Project Image]
+                    </div>
+                  )}
+                </div>
+                
+                {/* Project info with description and button side-by-side */}
+                <div className="flex items-start justify-between gap-6">
+                  <div className="flex-1 space-y-3">
+                    <p className="text-gray-600">{project.description}</p>
+                    <div className="flex gap-3">
+                      {project.tags.map((tag, i) => (
+                        <span key={i} className="text-xs tracking-wide px-3 py-1 rounded-full" 
+                          style={{ backgroundColor: `${accentColor}20`, color: accentColor }}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </a>
+                  
+                  {/* View Project button on the right */}
+                  <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium transition-all duration-300 rounded-sm hover:gap-3 whitespace-nowrap flex-shrink-0"
+                    style={{ 
+                      backgroundColor: `${accentColor}15`, 
+                      color: accentColor 
+                    }}
+                  >
+                    View Project
+                    <ArrowRight size={16} strokeWidth={2} />
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -162,6 +219,103 @@ export default function Portfolio() {
             </p>
           </div>
         </div>
+
+        {/* Education */}
+        <div className="max-w-3xl mx-auto pt-8 space-y-4">
+          <h3 className="text-2xl font-light tracking-tight">Education</h3>
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="font-medium">Georgia Institute of Technology</p>
+                  <p className="text-gray-600">Master of Science in Computer Science</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="font-medium">The University of Texas at Austin</p>
+                  <p className="text-gray-600">Bachelor of Science in Electrical & Computer Engineering</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Work Experience */}
+        <div className="max-w-3xl mx-auto pt-8 space-y-6">
+          <h3 className="text-2xl font-light tracking-tight">Experience</h3>
+          
+          {/* Octopus Energy */}
+          <div className="space-y-3 pb-6 border-b border-gray-200">
+            <div className="flex justify-between items-start flex-wrap gap-2">
+              <div>
+                <p className="font-medium">Analytics Engineer</p>
+                <p className="text-gray-600">Octopus Energy</p>
+              </div>
+              <p className="text-sm text-gray-500">Sep 2024 - Present</p>
+            </div>
+            <ul className="text-gray-700 space-y-2 list-disc list-inside">
+              <li>Building data infrastructure that powers financial reporting and energy trading operations across international markets</li>
+              <li>Transforming raw data into reliable insights that help teams make critical business decisions in real-time</li>
+              <li>Optimizing systems to run 80% faster through improved architecture and code refactoring</li>
+            </ul>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {['Python', 'SQL', 'dbt', 'AWS', 'Airflow'].map((tech, i) => (
+                <span key={i} className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 cursor-default">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Capital One */}
+          <div className="space-y-3 pb-6 border-b border-gray-200">
+            <div className="flex justify-between items-start flex-wrap gap-2">
+              <div>
+                <p className="font-medium">Senior Data Engineer</p>
+                <p className="text-gray-600">Capital One</p>
+              </div>
+              <p className="text-sm text-gray-500">Aug 2021 - May 2023</p>
+            </div>
+            <ul className="text-gray-700 space-y-2 list-disc list-inside">
+              <li>Designed and maintained data systems giving finance and operations teams instant access to key business metrics</li>
+              <li>Streamlined complex queries to deliver insights 2x faster</li>
+              <li>Enabled better decision-making through intuitive dashboards and reports</li>
+            </ul>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {['SQL', 'Snowflake', 'Airflow', 'Tableau', 'Python'].map((tech, i) => (
+                <span key={i} className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 cursor-default">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Cisco */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-start flex-wrap gap-2">
+              <div>
+                <p className="font-medium">Software Engineer</p>
+                <p className="text-gray-600">Cisco Systems</p>
+              </div>
+              <p className="text-sm text-gray-500">Jul 2019 - Aug 2021</p>
+            </div>
+            <ul className="text-gray-700 space-y-2 list-disc list-inside">
+              <li>Automated testing and deployment processes, reducing testing time from 15 hours to 2 hours</li>
+              <li>Scaled infrastructure to support millions of remote workers during the COVID-19 pandemic</li>
+              <li>Ensured reliable video calling experiences for Webex communication products</li>
+            </ul>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {['Python', 'Jenkins', 'Bash', 'VoIP', 'Webex'].map((tech, i) => (
+                <span key={i} className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 cursor-default">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Contact Section */}
@@ -174,7 +328,7 @@ export default function Portfolio() {
             </p>
           </div>
           
-          <div className="space-y-6 pt-8">
+          <form onSubmit={handleSubmit} className="space-y-6 pt-8">
             <div className="space-y-2">
               <label htmlFor="name" className="block text-sm text-gray-600">Name</label>
               <input
@@ -212,8 +366,9 @@ export default function Portfolio() {
             </div>
             
             <button
-              onClick={handleSubmit}
-              className="w-full md:w-auto px-12 py-4 bg-gray-900 text-white text-sm tracking-wide hover:bg-gray-800 transition-colors mt-8"
+              type='submit'
+              className="w-full md:w-auto px-12 py-4 text-white text-sm tracking-wide hover:scale-105 transition-all duration-300 mt-8 shadow-lg hover:shadow-xl"
+              style={{ backgroundColor: accentColor }}
             >
               Send Message
             </button>
@@ -221,7 +376,7 @@ export default function Portfolio() {
             {formStatus && (
               <p className="text-center text-green-600 text-sm pt-4">{formStatus}</p>
             )}
-          </div>
+          </form>
         </div>
       </section>
 
