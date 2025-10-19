@@ -365,13 +365,15 @@ export default function Portfolio() {
               />
             </div>
             
-            <button
-              type='submit'
-              className="w-full md:w-auto px-12 py-4 text-white text-sm tracking-wide hover:scale-105 transition-all duration-300 mt-8 shadow-lg hover:shadow-xl"
-              style={{ backgroundColor: accentColor }}
-            >
-              Send Message
-            </button>
+            <div className="flex justify-center">
+              <button
+                type='submit'
+                className="w-full md:w-auto px-12 py-4 text-white text-sm tracking-wide hover:scale-105 transition-all duration-300 mt-8 shadow-lg hover:shadow-xl"
+                style={{ backgroundColor: accentColor }}
+              >
+                Send Message
+              </button>
+            </div>
             
             {formStatus && (
               <p className="text-center text-green-600 text-sm pt-4">{formStatus}</p>
