@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { Github, Linkedin, Instagram, ExternalLink, ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Github, Linkedin, Instagram, ExternalLink, ArrowRight, Sun, Moon } from 'lucide-react';
+import { useDarkMode } from './hooks/useDarkMode';
+import { useActiveSection } from './hooks/useActiveSection';
+import { techColors } from './utils/techColors';
+import Typewriter from 'typewriter-effect';
+import VanillaTilt from 'vanilla-tilt';
 
 import brewscout1 from './assets/images/projects/brewscout-1.png';
 import brewscout2 from './assets/images/projects/brewscout-2.png';
@@ -33,6 +38,20 @@ const projects = [
   },
 ];
 
+  const TiltCard = ({ children }) => {
+    const tiltRef = useRef();
+    
+    useEffect(() => {
+      VanillaTilt.init(tiltRef.current, {
+        max: 10,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.2,
+      });
+    }, []);
+    
+    return <div ref={tiltRef}>{children}</div>;
+  };
 
 export default function Portfolio() {
   const accentColor = 'rgb(59, 130, 246)';
@@ -84,16 +103,43 @@ export default function Portfolio() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const activeSection = useActiveSection();
+
+  const [isDark, setIsDark] = useDarkMode();
+
+  useEffect(() => {
+    console.log('%c👋 Hey there, fellow developer!', 'color: #3B82F6; font-size: 20px; font-weight: bold;');
+    console.log('%c🚀 Looking for a talented engineer?', 'color: #10B981; font-size: 16px;');
+    console.log('%c📧 Let\'s connect: yazan.alatrach@example.com', 'color: #8B5CF6; font-size: 14px;');
+    console.log('%c💼 Check out my GitHub: https://github.com/yaz231', 'color: #F59E0B; font-size: 14px;');
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       {/* Simple Top Navigation */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur z-50 py-6">
+      <nav className="fixed top-0 w-full bg-white dark:bg-gray-900/95 backdrop-blur z-50 py-6">
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <a href="#" className="text-lg font-medium tracking-tight">Yazan Alatrach</a>
           <div className="flex gap-8 text-sm">
-            <button onClick={() => scrollToSection('projects')} className="hover:opacity-60 transition">Projects</button>
-            <button onClick={() => scrollToSection('about')} className="hover:opacity-60 transition">About</button>
-            <button onClick={() => scrollToSection('contact')} className="hover:opacity-60 transition">Contact</button>
+            <button onClick={() => scrollToSection('projects')} className={`hover:opacity-60 transition relative ${
+                activeSection === 'projects' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
+              }`}
+            >Projects</button>
+            <button onClick={() => scrollToSection('about')} className={`hover:opacity-60 transition relative ${
+                activeSection === 'about' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
+              }`}
+            >About</button>
+            <button onClick={() => scrollToSection('contact')} className={`hover:opacity-60 transition relative ${
+                activeSection === 'contact' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
+              }`}
+            >Contact</button>
+
+            <button 
+              onClick={() => setIsDark(!isDark)} 
+              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition"
+            >
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
           </div>
         </div>
       </nav>
@@ -101,24 +147,37 @@ export default function Portfolio() {
       {/* Hero Section - Very Spacious */}
       <section className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-3xl text-center space-y-8">
-          <h1 className="text-5xl md:text-7xl font-light leading-tight tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-light leading-tight tracking-tight gradient-text">
             Yazan Alatrach
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed max-w-2xl mx-auto">
-            A creative professional interested in building 
-            beautiful digital experiences
-          </p>
+          <div className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-light max-w-2xl mx-auto h-16">
+            <Typewriter
+              options={{
+                strings: [
+                  'A creative professional building beautiful digital experiences',
+                  'Software Engineer passionate about data and design',
+                  'Turning complex problems into elegant solutions',
+                  'Data Engineer crafting scalable systems'
+                ],
+                autoStart: true,
+                loop: true,
+                deleteSpeed: 50,
+                delay: 80,
+                pauseFor: 2000,
+              }}
+            />
+          </div>
           <div className="flex justify-center gap-6 pt-4">
             <a href="https://www.linkedin.com/in/yazan-alatrach-98001b118/" target="_blank" rel="noopener noreferrer" 
-               className="text-gray-600 hover:text-gray-900 transition">
+               className="text-gray-600 hover:text-gray-900 dark:text-white transition">
               <Linkedin size={22} strokeWidth={1.5} />
             </a>
             <a href="https://github.com/yaz231" target="_blank" rel="noopener noreferrer" 
-               className="text-gray-600 hover:text-gray-900 transition">
+               className="text-gray-600 hover:text-gray-900 dark:text-white transition">
               <Github size={22} strokeWidth={1.5} />
             </a>
             <a href="https://instagram.com/yazzz231" target="_blank" rel="noopener noreferrer" 
-               className="text-gray-600 hover:text-gray-900 transition">
+               className="text-gray-600 hover:text-gray-900 dark:text-white transition">
               <Instagram size={22} strokeWidth={1.5} />
             </a>
           </div>
@@ -128,80 +187,85 @@ export default function Portfolio() {
       {/* Projects Section */}
       <section id="projects" className="py-32 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight">Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight terminal-cursor">Projects</h2>
           <div className="space-y-24">
             {projects.map((project, index) => (
-              <div key={index} className="space-y-4">
-                {/* Title first */}
-                <h3 className="text-2xl font-semibold tracking-tight">{project.title}</h3>
-                
-                {/* Non-clickable image */}
-                <div className={`${project.images ? 'aspect-[16/10]' : 'aspect-video'} bg-gradient-to-br from-gray-50 to-gray-100 rounded-sm overflow-hidden`}>
-                  {project.images ? (
-                    // Multiple images for BrewScout
-                    <div className="w-full h-full flex items-center justify-center gap-4 p-8">
-                      {project.images.map((img, idx) => (
-                        <img 
-                          key={idx}
-                          src={img} 
-                          alt={`${project.title} screenshot ${idx + 1}`}
-                          className="h-full w-auto object-contain drop-shadow-2xl"
-                        />
-                      ))}
-                    </div>
-                  ) : project.image ? (
-                    // Single image for other projects
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      [Project Image]
-                    </div>
-                  )}
-                </div>
-                
-                {/* Project info with description and button side-by-side */}
-                <div className="flex items-start justify-between gap-6">
-                  <div className="flex-1 space-y-3">
-                    <p className="text-gray-600">{project.description}</p>
-                    <div className="flex gap-3">
-                      {project.tags.map((tag, i) => (
-                        <span key={i} className="text-xs tracking-wide px-3 py-1 rounded-full" 
-                          style={{ backgroundColor: `${accentColor}20`, color: accentColor }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              <TiltCard key={index}>
+                <div className="space-y-4">
+                  {/* Title first */}
+                  <h3 className="text-2xl font-semibold tracking-tight">{project.title}</h3>
+                  
+                  {/* Non-clickable image */}
+                  <div className={`${project.images ? 'aspect-[16/10]' : 'aspect-video'} bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-sm overflow-hidden`}>
+                    {project.images ? (
+                      // Multiple images for BrewScout
+                      <div className="w-full h-full flex items-center justify-center gap-4 p-8">
+                        {project.images.map((img, idx) => (
+                          <img 
+                            key={idx}
+                            src={img} 
+                            alt={`${project.title} screenshot ${idx + 1}`}
+                            className="h-full w-auto object-contain drop-shadow-2xl"
+                          />
+                        ))}
+                      </div>
+                    ) : project.image ? (
+                      // Single image for other projects
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        [Project Image]
+                      </div>
+                    )}
                   </div>
                   
-                  {/* View Project button on the right */}
-                  <a 
-                    href={project.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium transition-all duration-300 rounded-sm hover:gap-3 whitespace-nowrap flex-shrink-0"
-                    style={{ 
-                      backgroundColor: `${accentColor}15`, 
-                      color: accentColor 
-                    }}
-                  >
-                    View Project
-                    <ArrowRight size={16} strokeWidth={2} />
-                  </a>
+                  {/* Project info with description and button side-by-side */}
+                  <div className="flex items-start justify-between gap-6">
+                    <div className="flex-1 space-y-3">
+                      <p className="text-gray-600">{project.description}</p>
+                      <div className="flex gap-3">
+                        {project.tags.map((tag, i) => (
+                          <span key={i} className="text-xs px-3 py-1 rounded-full transition-all duration-200 hover:scale-110 hover:shadow-lg cursor-default"
+                            style={{ 
+                              backgroundColor: techColors[tag]?.bg || '#E5E7EB',
+                              color: techColors[tag]?.text || '#374151'
+                            }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* View Project button on the right */}
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium transition-all duration-300 rounded-sm hover:gap-3 whitespace-nowrap flex-shrink-0"
+                      style={{ 
+                        backgroundColor: `${accentColor}15`, 
+                        color: accentColor 
+                      }}
+                    >
+                      View Project
+                      <ArrowRight size={16} strokeWidth={2} />
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-32 px-6 bg-gray-50">
+      <section id="about" className="py-32 px-6 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-3xl mx-auto space-y-12">
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight">About</h2>
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight terminal-cursor">About</h2>
           <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
             <p>
               I'm a creative professional passionate about crafting thoughtful digital experiences. 
@@ -297,7 +361,7 @@ export default function Portfolio() {
           <div className="space-y-3">
             <div className="flex justify-between items-start flex-wrap gap-2">
               <div>
-                <p className="font-medium">Software Engineer</p>
+                <p className="font-medium">Network Engineer</p>
                 <p className="text-gray-600">Cisco Systems</p>
               </div>
               <p className="text-sm text-gray-500">Jul 2019 - Aug 2021</p>
@@ -322,7 +386,7 @@ export default function Portfolio() {
       <section id="contact" className="py-32 px-6">
         <div className="max-w-2xl mx-auto space-y-12">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight">Get in touch</h2>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight terminal-cursor">Get in touch</h2>
             <p className="text-gray-600 text-lg">
               Have a project in mind or just want to chat? I'd love to hear from you.
             </p>
@@ -388,11 +452,11 @@ export default function Portfolio() {
           <p className="text-sm text-gray-500">© 2025 Yazan Alatrach</p>
           <div className="flex gap-6">
             <a href="https://www.linkedin.com/in/yazan-alatrach-98001b118/" target="_blank" rel="noopener noreferrer" 
-               className="text-sm text-gray-500 hover:text-gray-900 transition">LinkedIn</a>
+               className="text-sm text-gray-500 hover:text-gray-900 dark:text-white transition">LinkedIn</a>
             <a href="https://github.com/yaz231" target="_blank" rel="noopener noreferrer" 
-               className="text-sm text-gray-500 hover:text-gray-900 transition">GitHub</a>
+               className="text-sm text-gray-500 hover:text-gray-900 dark:text-white transition">GitHub</a>
             <a href="https://www.instagram.com/yazzz231/" target="_blank" rel="noopener noreferrer" 
-               className="text-sm text-gray-500 hover:text-gray-900 transition">Instagram</a>
+               className="text-sm text-gray-500 hover:text-gray-900 dark:text-white transition">Instagram</a>
           </div>
         </div>
       </footer>

@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(to right, #3B82F6, #9333EA);
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+}
+
+@layer utilities {
+  .terminal-cursor::after {
+    content: '_';
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+}

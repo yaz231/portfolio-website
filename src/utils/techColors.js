@@ -1,0 +1,15 @@
+export const techColors = {
+  'Python': { bg: '#3776AB', text: 'white' },
+  'JavaScript': { bg: '#F7DF1E', text: 'black' },
+  'React': { bg: '#61DAFB', text: 'black' },
+  'SQL': { bg: '#00758F', text: 'white' },
+  'AWS': { bg: '#FF9900', text: 'black' },
+  'dbt': { bg: '#FF6B4A', text: 'white' },
+  'Snowflake': { bg: '#29B5E8', text: 'white' },
+  'Airflow': { bg: '#017CEE', text: 'white' },
+  'Tableau': { bg: '#E97627', text: 'white' },
+  'Jenkins': { bg: '#D24939', text: 'white' },
+  'Bash': { bg: '#4EAA25', text: 'white' },
+  'iOS': { bg: '#000000', text: 'white' },
+  'Swift': { bg: '#FA7343', text: 'white' },
+};
