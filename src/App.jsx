@@ -4,13 +4,13 @@ import { useDarkMode } from './hooks/useDarkMode';
 import { useActiveSection } from './hooks/useActiveSection';
 import { techColors } from './utils/techColors';
 import Typewriter from 'typewriter-effect';
-import VanillaTilt from 'vanilla-tilt';
 
 import brewscout1 from './assets/images/projects/brewscout-1.png';
 import brewscout2 from './assets/images/projects/brewscout-2.png';
 import brewscout3 from './assets/images/projects/brewscout-3.png';
 import saveseweidaImage from './assets/images/projects/savesweida.png';
 import financialAnalyzerImage from './assets/images/projects/financial-analyzer.png';
+
 
 
 const projects = [
@@ -38,20 +38,31 @@ const projects = [
   },
 ];
 
-  const TiltCard = ({ children }) => {
-    const tiltRef = useRef();
+const FadeInSection = ({ children }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef();
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => entry.isIntersecting && setIsVisible(true),
+      { threshold: 0.1 }
+    );
     
-    useEffect(() => {
-      VanillaTilt.init(tiltRef.current, {
-        max: 10,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.2,
-      });
-    }, []);
-    
-    return <div ref={tiltRef}>{children}</div>;
-  };
+    if (ref.current) observer.observe(ref.current);
+    return () => ref.current && observer.unobserve(ref.current);
+  }, []);
+  
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
+      {children}
+    </div>
+  );
+};
 
 export default function Portfolio() {
   const accentColor = 'rgb(59, 130, 246)';
@@ -61,6 +72,21 @@ export default function Portfolio() {
     message: ''
   });
   const [formStatus, setFormStatus] = useState('');
+  const [isDark, setIsDark] = useDarkMode();
+  const activeSection = useActiveSection();
+
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,14 +129,10 @@ export default function Portfolio() {
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const activeSection = useActiveSection();
-
-  const [isDark, setIsDark] = useDarkMode();
 
   useEffect(() => {
     console.log('%c👋 Hey there, fellow developer!', 'color: #3B82F6; font-size: 20px; font-weight: bold;');
     console.log('%c🚀 Looking for a talented engineer?', 'color: #10B981; font-size: 16px;');
-    console.log('%c📧 Let\'s connect: yazan.alatrach@example.com', 'color: #8B5CF6; font-size: 14px;');
     console.log('%c💼 Check out my GitHub: https://github.com/yaz231', 'color: #F59E0B; font-size: 14px;');
   }, []);
 
@@ -144,6 +166,10 @@ export default function Portfolio() {
         </div>
       </nav>
 
+      <div className="absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300"
+        style={{ width: `${scrollProgress}%` }} 
+      ></div>
+
       {/* Hero Section - Very Spacious */}
       <section className="min-h-screen flex items-center justify-center px-6">
         <div className="max-w-3xl text-center space-y-8">
@@ -154,16 +180,14 @@ export default function Portfolio() {
             <Typewriter
               options={{
                 strings: [
-                  'A creative professional building beautiful digital experiences',
-                  'Software Engineer passionate about data and design',
-                  'Turning complex problems into elegant solutions',
-                  'Data Engineer crafting scalable systems'
+                  'Building beautiful digital experiences',
+                  'Software Engineer & Data Enthusiast'
                 ],
                 autoStart: true,
                 loop: true,
-                deleteSpeed: 50,
-                delay: 80,
-                pauseFor: 2000,
+                deleteSpeed: 30,
+                delay: 60,
+                pauseFor: 3000, // Longer pause for readability
               }}
             />
           </div>
@@ -187,11 +211,11 @@ export default function Portfolio() {
       {/* Projects Section */}
       <section id="projects" className="py-32 px-6">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight terminal-cursor">Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-light mb-20 text-center tracking-tight ">Projects</h2>
           <div className="space-y-24">
             {projects.map((project, index) => (
-              <TiltCard key={index}>
-                <div className="space-y-4">
+              <FadeInSection key={index}>
+                <div className="space-y-4 transition-all duration-300 hover:scale-[1.01]">
                   {/* Title first */}
                   <h3 className="text-2xl font-semibold tracking-tight">{project.title}</h3>
                   
@@ -256,7 +280,7 @@ export default function Portfolio() {
                     </a>
                   </div>
                 </div>
-              </TiltCard>
+              </FadeInSection>
             ))}
           </div>
         </div>
@@ -265,7 +289,7 @@ export default function Portfolio() {
       {/* About Section */}
       <section id="about" className="py-32 px-6 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-3xl mx-auto space-y-12">
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight terminal-cursor">About</h2>
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight ">About</h2>
           <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
             <p>
               I'm a creative professional passionate about crafting thoughtful digital experiences. 
@@ -327,7 +351,12 @@ export default function Portfolio() {
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['Python', 'SQL', 'dbt', 'AWS', 'Airflow'].map((tech, i) => (
-                <span key={i} className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 cursor-default">
+                <span key={i} 
+                  className="text-xs px-3 py-1 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-md cursor-default"
+                  style={{ 
+                    backgroundColor: techColors[tech]?.bg || '#E5E7EB',
+                    color: techColors[tech]?.text || '#374151'
+                  }}>                  
                   {tech}
                 </span>
               ))}
@@ -350,7 +379,12 @@ export default function Portfolio() {
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['SQL', 'Snowflake', 'Airflow', 'Tableau', 'Python'].map((tech, i) => (
-                <span key={i} className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 cursor-default">
+                <span key={i} 
+                  className="text-xs px-3 py-1 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-md cursor-default"
+                  style={{ 
+                    backgroundColor: techColors[tech]?.bg || '#E5E7EB',
+                    color: techColors[tech]?.text || '#374151'
+                  }}>
                   {tech}
                 </span>
               ))}
@@ -373,7 +407,12 @@ export default function Portfolio() {
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['Python', 'Jenkins', 'Bash', 'VoIP', 'Webex'].map((tech, i) => (
-                <span key={i} className="text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200 cursor-default">
+                <span key={i} 
+                  className="text-xs px-3 py-1 rounded-full transition-all duration-200 hover:scale-105 hover:shadow-md cursor-default"
+                  style={{ 
+                    backgroundColor: techColors[tech]?.bg || '#E5E7EB',
+                    color: techColors[tech]?.text || '#374151'
+                  }}>
                   {tech}
                 </span>
               ))}
@@ -386,7 +425,7 @@ export default function Portfolio() {
       <section id="contact" className="py-32 px-6">
         <div className="max-w-2xl mx-auto space-y-12">
           <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight terminal-cursor">Get in touch</h2>
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight ">Get in touch</h2>
             <p className="text-gray-600 text-lg">
               Have a project in mind or just want to chat? I'd love to hear from you.
             </p>
