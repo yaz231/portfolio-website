@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, Linkedin, Instagram, ExternalLink, ArrowRight, Sun, Moon } from 'lucide-react';
+import { Github, Linkedin, Instagram, ExternalLink, ArrowRight, Sun, Moon, Download } from 'lucide-react';
 import { useDarkMode } from './hooks/useDarkMode';
 import { useActiveSection } from './hooks/useActiveSection';
 import { techColors } from './utils/techColors';
@@ -151,13 +151,17 @@ export default function Portfolio() {
                 activeSection === 'about' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
               }`}
             >About</button>
+            <button onClick={() => scrollToSection('resume')} className={`hover:opacity-60 transition relative ${
+                activeSection === 'resume' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
+              }`}
+            >Resume</button>
             <button onClick={() => scrollToSection('contact')} className={`hover:opacity-60 transition relative ${
                 activeSection === 'contact' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
               }`}
             >Contact</button>
 
-            <button 
-              onClick={() => setIsDark(!isDark)} 
+            <button
+              onClick={() => setIsDark(!isDark)}
               className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition"
             >
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -421,8 +425,42 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Resume Section */}
+      <section id="resume" className="py-32 px-6">
+        <div className="max-w-3xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight">Resume</h2>
+            <p className="text-gray-600 text-lg">
+              Download my resume to learn more about my experience and qualifications.
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center gap-8 pt-8">
+            {/* PDF Preview Container */}
+            <div className="w-full aspect-[8.5/11] bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-sm overflow-hidden shadow-lg">
+              <iframe
+                src="/Resume.pdf"
+                className="w-full h-full"
+                title="Resume Preview"
+              />
+            </div>
+
+            {/* Download Button */}
+            <a
+              href="/Resume.pdf"
+              download="Yazan_Alatrach_Resume.pdf"
+              className="inline-flex items-center gap-3 px-12 py-4 text-white text-sm font-medium tracking-wide hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+              style={{ backgroundColor: accentColor }}
+            >
+              <Download size={18} strokeWidth={2} />
+              Download Resume
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section id="contact" className="py-32 px-6">
+      <section id="contact" className="py-32 px-6 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-2xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight ">Get in touch</h2>
