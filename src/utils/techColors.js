@@ -12,4 +12,7 @@ export const techColors = {
   'Bash': { bg: '#4EAA25', text: 'white' },
   'iOS': { bg: '#000000', text: 'white' },
   'Swift': { bg: '#FA7343', text: 'white' },
+  'GCP': { bg: '#4285F4', text: 'white' },
+  'APIs': { bg: '#10B981', text: 'white' },
+  'Gemini LLM': { bg: '#8B5CF6', text: 'white' },
 };

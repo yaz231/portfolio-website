@@ -19,6 +19,12 @@ const skills = {
   ],
 };
 
+const skillCategories = {
+  'Data Engineering': ['Python', 'SQL', 'dbt', 'Airflow', 'Snowflake', 'AWS', 'GCP'],
+  'Software Development': ['JavaScript', 'React', 'Swift', 'FastAPI', 'Unix/Linux'],
+  'Data Tools': ['Databricks', 'Tableau', 'Streamlit', 'Jenkins']
+};
+
 export const SkillsChart = () => {
   const [activeCategory, setActiveCategory] = useState('Frontend');
   

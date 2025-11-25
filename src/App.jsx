@@ -15,11 +15,17 @@ import financialAnalyzerImage from './assets/images/projects/financial-analyzer.
 
 const projects = [
   { 
+    title: 'Financial Analyzer', 
+    description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
+    tags: ['React', 'Data Visualization', 'Finance'],
+    link: 'https://financial-analyzer-lac.vercel.app',
+    image: financialAnalyzerImage
+  },
+  { 
     title: 'BrewScout', 
     description: 'A native iOS app that helps coffee enthusiasts discover and review local coffee shops with detailed insights beyond what traditional map apps offer. Users can search for coffee shops based on specific amenities (WiFi, seating, outlets, vibes) and contribute community-driven reviews with granular attribute ratings.',
     tags: ['iOS', 'Swift', 'Mobile App'],
     link: 'https://apps.apple.com/us/app/brewscout-coffee/id6744943538',
-    // images come from https://mockuphone.com
     images: [brewscout1, brewscout2, brewscout3]
   },
   { 
@@ -29,13 +35,24 @@ const projects = [
     link: 'https://www.savesweida.com',
     image: saveseweidaImage
   },
-  { 
-    title: 'Financial Analyzer', 
-    description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
-    tags: ['React', 'Data Visualization', 'Finance'],
-    link: 'https://financial-analyzer-lac.vercel.app',
-    image: financialAnalyzerImage
+];
+
+const workHighlights = [
+  {
+    title: 'Automated Data Infrastructure',
+    description: '10+ production data pipelines processing millions of daily events, enabling multi-million dollar trading decisions',
+    tech: ['Python', 'Airflow', 'AWS', 'dbt']
   },
+  {
+    title: 'AI Quality Assessment System',
+    description: 'End-to-end automated pipeline using LLMs to analyze transcripts and generate training reports',
+    tech: ['Python', 'Gemini LLM', 'APIs']
+  },
+  {
+    title: 'Financial Data Models',
+    description: 'Transformation layer achieving cent-level precision for international financial reporting',
+    tech: ['dbt', 'SQL', 'Snowflake']
+  }
 ];
 
 const FadeInSection = ({ children }) => {
@@ -184,8 +201,10 @@ export default function Portfolio() {
             <Typewriter
               options={{
                 strings: [
-                  'Building beautiful digital experiences',
-                  'Software Engineer & Data Enthusiast'
+                  'Data Engineer building scalable systems and pipelines',
+                  'Software Engineer passionate about data and automation',
+                  'Turning complex problems into elegant, production-ready solutions',
+                  'Building from data infrastructure to user-facing applications'
                 ],
                 autoStart: true,
                 loop: true,
@@ -290,24 +309,61 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Work Highlights Section */}
+      <section className="py-32 px-6 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-light mb-12 text-center tracking-tight">Professional Work</h2>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
+            Selected highlights from my professional experience building production data systems
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {workHighlights.map((highlight, index) => (
+              <FadeInSection key={index}>
+                <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+                  <h3 className="text-xl font-semibold mb-3">{highlight.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 text-sm leading-relaxed">
+                    {highlight.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {highlight.tech.map((tech, i) => (
+                      <span 
+                        key={i} 
+                        className="text-xs px-3 py-1 rounded-full"
+                        style={{ 
+                          backgroundColor: techColors[tech]?.bg || '#E5E7EB',
+                          color: techColors[tech]?.text || '#374151'
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </FadeInSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* About Section */}
       <section id="about" className="py-32 px-6 bg-gray-50 dark:bg-gray-800">
         <div className="max-w-3xl mx-auto space-y-12">
           <h2 className="text-3xl md:text-4xl font-light tracking-tight ">About</h2>
-          <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
+          <div className="space-y-6 text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             <p>
-              I'm a creative professional passionate about crafting thoughtful digital experiences. 
-              My work sits at the intersection of design and technology, always focused on solving 
-              real problems for real people.
+              I'm a Data Engineer passionate about building scalable systems that turn data into actionable 
+              insights. My work spans the full data stack—from ingestion pipelines and transformation layers 
+              to BI dashboards and automated analytics.
             </p>
             <p>
-              With a background in Data Engineering, I've had the opportunity to work on diverse projects 
-              ranging from web applications to interactive experiences. I believe in the power of 
-              simple, elegant solutions.
+              With experience at companies like Octopus Energy and Capital One, I've built production data 
+              infrastructure processing millions of daily events, optimized critical business queries, and 
+              created automated systems that drive multi-million dollar decisions.
             </p>
             <p>
-              When I'm not designing or coding, you can find me exploring new technologies, 
-              contributing to open source, or seeking inspiration in everyday moments.
+              Beyond my day job, I build for fun—from iOS apps for discovering coffee shops to web platforms 
+              for social impact. I believe in the power of elegant solutions, whether that's a clean data model 
+              or an intuitive user interface.
             </p>
           </div>
         </div>
@@ -348,10 +404,12 @@ export default function Portfolio() {
               </div>
               <p className="text-sm text-gray-500">Sep 2024 - Present</p>
             </div>
-            <ul className="text-gray-700 space-y-2 list-disc list-inside">
-              <li>Building data infrastructure that powers financial reporting and energy trading operations across international markets</li>
-              <li>Transforming raw data into reliable insights that help teams make critical business decisions in real-time</li>
-              <li>Optimizing systems to run 80% faster through improved architecture and code refactoring</li>
+            <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
+              <li>Owned transformation layer architecture using dbt and SQL to build scalable data models processing millions of daily events for financial reporting, energy trading, and risk management across international regions</li>
+              <li>Built end-to-end automated QA pipeline using Python and Gemini LLM to generate AI-powered quality assessments and training reports, eliminating manual review processes</li>
+              <li>Designed and implemented 10+ automated data ingestion pipelines using Python and Apache Airflow, enabling risk teams to perform accurate forecasting for multi-million dollar trading decisions</li>
+              <li>Refactored legacy code using Python and dbt, reducing processing time by 80% and improving system reliability for business-critical operations</li>
+              <li>Maintained 99%+ uptime of business-critical data systems by proactively monitoring and implementing fixes to prevent disruption to teams relying on real-time data</li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['Python', 'SQL', 'dbt', 'AWS', 'Airflow'].map((tech, i) => (
@@ -376,10 +434,11 @@ export default function Portfolio() {
               </div>
               <p className="text-sm text-gray-500">Aug 2021 - May 2023</p>
             </div>
-            <ul className="text-gray-700 space-y-2 list-disc list-inside">
-              <li>Designed and maintained data systems giving finance and operations teams instant access to key business metrics</li>
-              <li>Streamlined complex queries to deliver insights 2x faster</li>
-              <li>Enabled better decision-making through intuitive dashboards and reports</li>
+            <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
+              <li>Built and maintained transformation layer data models using SQL and Snowflake to support diverse business needs, from daily operational metrics to historical trend analysis</li>
+              <li>Optimized critical business queries, reducing query execution time by 50% from 1 hour to 30 minutes for key metrics like application submissions, conversion, and fund rates</li>
+              <li>Developed robust ETL/ELT pipelines using Snowflake and Apache Airflow to integrate data from CRMs, payment systems, and transactional databases</li>
+              <li>Collaborated directly with data analysts and business users to create and refine Tableau dashboards, delivering actionable data products</li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['SQL', 'Snowflake', 'Airflow', 'Tableau', 'Python'].map((tech, i) => (
@@ -404,10 +463,9 @@ export default function Portfolio() {
               </div>
               <p className="text-sm text-gray-500">Jul 2019 - Aug 2021</p>
             </div>
-            <ul className="text-gray-700 space-y-2 list-disc list-inside">
-              <li>Automated testing and deployment processes, reducing testing time from 15 hours to 2 hours</li>
-              <li>Scaled infrastructure to support millions of remote workers during the COVID-19 pandemic</li>
-              <li>Ensured reliable video calling experiences for Webex communication products</li>
+            <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
+              <li>Created Python and Jenkins-based testing suite, automating feature verification and deployment, cutting testing duration from 15 hours to 2 hours</li>
+              <li>Developed and deployed Webex clients to support increased demand for remote work during COVID-19 pandemic, creating bash scripts for efficient server monitoring</li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['Python', 'Jenkins', 'Bash', 'VoIP', 'Webex'].map((tech, i) => (
