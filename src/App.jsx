@@ -386,6 +386,7 @@ export default function Portfolio() {
                   <p className="font-medium">Georgia Institute of Technology</p>
                   <p className="text-gray-600">Master of Science in Computer Science</p>
                 </div>
+                <p className="text-sm text-gray-500">2025</p>
               </div>
             </div>
             <div>
@@ -394,6 +395,7 @@ export default function Portfolio() {
                   <p className="font-medium">The University of Texas at Austin</p>
                   <p className="text-gray-600">Bachelor of Science in Electrical & Computer Engineering</p>
                 </div>
+                <p className="text-sm text-gray-500">2019</p>
               </div>
             </div>
           </div>
