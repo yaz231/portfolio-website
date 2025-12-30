@@ -10,12 +10,20 @@ import brewscout2 from './assets/images/projects/brewscout-2.png';
 import brewscout3 from './assets/images/projects/brewscout-3.png';
 import saveseweidaImage from './assets/images/projects/savesweida.png';
 import financialAnalyzerImage from './assets/images/projects/financial-analyzer.png';
+import momentoImage from './assets/images/projects/momento.png';
 
 
 
 const projects = [
-  { 
-    title: 'Financial Analyzer', 
+  {
+    title: 'Momento',
+    description: 'An ephemeral photo sharing web application designed for temporary event albums. Create privacy-focused photo albums that automatically delete after 1-10 days, perfect for gatherings and events. Features include guest-friendly access with event codes, smart image compression, batch downloads, email reminders, and premium subscriptions for extended storage.',
+    tags: ['Next.js', 'TypeScript', 'Supabase', 'Stripe'],
+    link: 'https://www.momentosharing.app',
+    image: momentoImage
+  },
+  {
+    title: 'Financial Analyzer',
     description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
     tags: ['React', 'Data Visualization', 'Finance'],
     link: 'https://financial-analyzer-lac.vercel.app',
