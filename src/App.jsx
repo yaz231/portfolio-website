@@ -397,6 +397,10 @@ export default function Portfolio() {
               for social impact. I believe in the power of elegant solutions, whether that's a clean data model
               or an intuitive user interface.
             </p>
+            <p>
+              Outside of engineering, I'm usually planning my next trip, hunting down a new restaurant to try,
+              on the pickleball court, or deep into a video game.
+            </p>
           </div>
         </div>
 
@@ -433,17 +437,18 @@ export default function Portfolio() {
           <div className="space-y-3 pb-6 border-b border-gray-200">
             <div className="flex justify-between items-start flex-wrap gap-2">
               <div>
-                <p className="font-medium">Analytics Engineer</p>
+                <p className="font-medium">Senior Data Engineer</p>
                 <p className="text-gray-600">Octopus Energy</p>
               </div>
               <p className="text-sm text-gray-500">Sep 2024 - Present</p>
             </div>
             <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-              <li>Owned transformation layer architecture using dbt and SQL to build scalable data models processing millions of daily events for financial reporting, energy trading, and risk management across international regions</li>
-              <li>Built end-to-end automated QA pipeline using Python and Gemini LLM to generate AI-powered quality assessments and training reports, eliminating manual review processes</li>
-              <li>Designed and implemented 10+ automated data ingestion pipelines using Python and Apache Airflow, enabling risk teams to perform accurate forecasting for multi-million dollar trading decisions</li>
-              <li>Refactored legacy code using Python and dbt, reducing processing time by 80% and improving system reliability for business-critical operations</li>
-              <li>Maintained 99%+ uptime of business-critical data systems by proactively monitoring and implementing fixes to prevent disruption to teams relying on real-time data</li>
+              <li>Owned reliability and observability for 10+ production data pipelines on AWS, implementing SLA-based alerting, data freshness monitoring, and automated failure recovery—ensuring business-critical energy trading systems met uptime requirements across international regions</li>
+              <li>Owned transformation layer architecture using dbt and SQL to build scalable data models supporting financial reporting, energy trading operations, and risk management across international regions, processing millions of daily events from transactional databases, API logs, and operational systems</li>
+              <li>Spearheaded end-to-end AI-powered Voice of Customer pipeline using Python and Gemini LLM to ingest and analyze 600+ weekly call transcripts and 1,000+ emails across 300 conversations, automatically categorizing customer pain points and publishing a weekly executive report to Slack—eliminating ~83 hours of manual weekly review and becoming the model adopted by other international regions</li>
+              <li>Built end-to-end automated QA pipeline using Python, Gemini LLM, and Slack API to ingest phone transcripts, generate AI-powered quality assessments with constructive feedback, and produce automated reports for energy specialists, eliminating manual review processes and accelerating team training cycles</li>
+              <li>Refactored legacy codebase into a transparent, maintainable system using Python and dbt, reducing processing time by 80% and improving reliability for business-critical energy market operations</li>
+              <li>Designed and implemented 10+ automated ingestion pipelines using Python and Apache Airflow on AWS, integrating third-party data sources (Yes Energy, Amperon, Meteologica, Habitat Energy) into a scalable data lake—with modular DAG architecture enabling isolated failure recovery without full pipeline reruns</li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['Python', 'SQL', 'dbt', 'AWS', 'Airflow'].map((tech, i) => (
@@ -469,10 +474,10 @@ export default function Portfolio() {
               <p className="text-sm text-gray-500">Aug 2021 - May 2023</p>
             </div>
             <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-              <li>Built and maintained transformation layer data models using SQL and Snowflake to support diverse business needs, from daily operational metrics to historical trend analysis</li>
-              <li>Optimized critical business queries, reducing query execution time by 50% from 1 hour to 30 minutes for key metrics like application submissions, conversion, and fund rates</li>
-              <li>Developed robust ETL/ELT pipelines using Snowflake and Apache Airflow to integrate data from CRMs, payment systems, and transactional databases</li>
-              <li>Collaborated directly with data analysts and business users to create and refine Tableau dashboards, delivering actionable data products</li>
+              <li>Built transformation layer data models in SQL and Snowflake supporting daily operational metrics and historical trend analysis for finance and operations stakeholders</li>
+              <li>Translated raw web clickstream data into conversion funnel metrics surfaced via Tableau dashboards, giving marketing and product teams visibility into lead progression across the application flow</li>
+              <li>Optimized critical business queries, cutting execution time by 50% (1 hour to 30 minutes) and accelerating access to key metrics including application submissions, conversion rates, and fund rates</li>
+              <li>Built ETL/ELT pipelines using Snowflake and Apache Airflow to consolidate data from CRMs, payment systems, and transactional databases into repeatable ingestion and transformation patterns</li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['SQL', 'Snowflake', 'Airflow', 'Tableau', 'Python'].map((tech, i) => (
@@ -495,11 +500,14 @@ export default function Portfolio() {
                 <p className="font-medium">Network Engineer</p>
                 <p className="text-gray-600">Cisco Systems</p>
               </div>
-              <p className="text-sm text-gray-500">Jul 2019 - Aug 2021</p>
+              <p className="text-sm text-gray-500">Jun 2019 - Aug 2021</p>
             </div>
             <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
-              <li>Created Python and Jenkins-based testing suite, automating feature verification and deployment, cutting testing duration from 15 hours to 2 hours</li>
-              <li>Developed and deployed Webex clients to support increased demand for remote work during COVID-19 pandemic, creating bash scripts for efficient server monitoring</li>
+              <li>Built Python and Jenkins-based automated testing suite for VoIP feature verification, reducing testing duration from 15 hours to 2 hours per release cycle</li>
+              <li>Conducted interoperability testing of VoIP phones and Webex clients using Wireshark for SIP signaling and RTP media stream analysis, validating feature compatibility ahead of biweekly software releases</li>
+              <li>Configured and validated SIP trunk and PBX integrations to ensure reliable call routing and telephony feature compatibility across enterprise environments</li>
+              <li>Engineered a bash script to concurrently health-check 1,000+ servers across US regions via ICMP ping, identifying non-responsive nodes prior to large-scale Webex deployment during COVID-19 surge</li>
+              <li>Diagnosed and debugged live network issues across enterprise VoIP deployments using Wireshark packet analysis, SIP trace inspection, and ICMP-based fleet monitoring—developing familiarity with network behavior under packet loss and link instability</li>
             </ul>
             <div className="flex flex-wrap gap-2 pt-1">
               {['Python', 'Jenkins', 'Bash', 'VoIP', 'Webex'].map((tech, i) => (
