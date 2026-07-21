@@ -19,4 +19,7 @@ export const techColors = {
   'Gemini LLM': { bg: '#8B5CF6', text: 'white' },
   'Supabase': { bg: '#3ECF8E', text: 'black' },
   'Stripe': { bg: '#635BFF', text: 'white' },
+  'FastAPI': { bg: '#009688', text: 'white' },
+  'AI/ML': { bg: '#8B5CF6', text: 'white' },
+  'Research': { bg: '#EC4899', text: 'white' },
 };

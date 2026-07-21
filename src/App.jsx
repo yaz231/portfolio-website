@@ -10,7 +10,12 @@ import brewscout2 from './assets/images/projects/brewscout-2.png';
 import brewscout3 from './assets/images/projects/brewscout-3.png';
 import saveseweidaImage from './assets/images/projects/savesweida.png';
 import financialAnalyzerImage from './assets/images/projects/financial-analyzer.png';
+import stylescout1 from './assets/images/projects/stylescout-1.png';
+import stylescout2 from './assets/images/projects/stylescout-2.png';
+import stylescout3 from './assets/images/projects/stylescout-3.png';
+import behavioralExperimentImage from './assets/images/projects/behavioral-experiment-1.png';
 import { VoCDiagram } from './components/VoCDiagram';
+import { ExpandableGallery } from './components/ExpandableGallery';
 
 
 
@@ -20,6 +25,31 @@ const projects = [
     description: 'Fully automated pipeline ingesting hundreds of call transcripts and emails weekly through a structured Gemini LLM workflow, delivering executive-ready PDF reports that replaced 83 hours of manual work per week. Identifies customer pain points and successes directly from the source.',
     tags: ['Python', 'Gemini LLM', 'Airflow', 'APIs'],
     graphic: <VoCDiagram />
+  },
+  {
+    title: 'StyleScout',
+    bullets: [
+      'Visual fashion discovery platform — upload a photo of any garment and find visually similar pieces across multiple online retailers',
+      'AI embedding pipeline (FashionSigLIP, 768-dim) with automated background removal and pgvector cosine similarity search for fast, accurate matching',
+      'Automated wardrobe analysis: users upload clothes they own, and an AI-derived style profile (aesthetic, colors, garments, keywords) personalizes recommendations',
+      'Next.js 15 web app and companion Expo/React Native mobile app sharing a typed API client and Zod schemas via a Turborepo monorepo',
+      'Product ingestion pipelines pull catalogs from affiliate networks (Apify, Commission Junction) with Claude-powered product enrichment',
+    ],
+    tags: ['Next.js', 'FastAPI', 'AI/ML', 'Supabase'],
+    link: 'https://style-scout-web.vercel.app/wardrobe',
+    gallery: [stylescout1, stylescout2, stylescout3]
+  },
+  {
+    title: 'Behavioral Experiment Platform',
+    bullets: [
+      'Web-based behavioral psychology tool implementing a 4-phase BABA (Baseline-Alternative-Baseline-Alternative) reinforcement schedule design',
+      'Interactive 5x5 grid interface where participants choose between two options, with configurable reinforcement delay (0-10s) to study effects on response patterns',
+      'Dual-stream data logging captures discrete click events and continuous state snapshots for fine-grained behavioral analysis',
+      'Consent flow, instructions screen, and admin dashboard for monitoring session stats, traffic allocation, and data exports',
+      'Built with Next.js App Router and TypeScript, deployed on Vercel with environment-based test/production configuration',
+    ],
+    tags: ['Next.js', 'TypeScript', 'Research'],
+    gallery: [behavioralExperimentImage]
   },
   {
     title: 'Financial Analyzer',
@@ -250,6 +280,8 @@ export default function Portfolio() {
                     <div className="rounded-sm overflow-hidden">
                       {project.graphic}
                     </div>
+                  ) : project.gallery ? (
+                    <ExpandableGallery images={project.gallery} title={project.title} />
                   ) : (
                     <div className={`${project.images ? 'aspect-[16/10]' : 'aspect-video'} bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-sm overflow-hidden`}>
                       {project.images ? (
@@ -268,7 +300,15 @@ export default function Portfolio() {
                   {/* Project info with description and button side-by-side */}
                   <div className="flex items-start justify-between gap-6">
                     <div className="flex-1 space-y-3">
-                      <p className="text-gray-600">{project.description}</p>
+                      {project.bullets ? (
+                        <ul className="text-gray-600 space-y-1.5 list-disc list-inside">
+                          {project.bullets.map((bullet, i) => (
+                            <li key={i}>{bullet}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-gray-600">{project.description}</p>
+                      )}
                       <div className="flex gap-3">
                         {project.tags.map((tag, i) => (
                           <span key={i} className="text-xs px-3 py-1 rounded-full transition-all duration-200 hover:scale-110 hover:shadow-lg cursor-default"

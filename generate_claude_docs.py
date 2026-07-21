@@ -122,12 +122,12 @@ File: {rel_path}
 Return only the JSON object, no markdown fences."""
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-5",
         max_tokens=400,
         messages=[{"role": "user", "content": prompt}],
     )
 
-    raw = response.content[0].text.strip()
+    raw = next(b.text for b in response.content if b.type == "text").strip()
     # Strip fences if model adds them anyway
     if raw.startswith("```"):
         raw = raw.split("```")[1]
