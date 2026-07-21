@@ -29,11 +29,10 @@ const projects = [
   {
     title: 'StyleScout',
     bullets: [
-      'Visual fashion discovery platform — upload a photo of any garment and find visually similar pieces across multiple online retailers',
-      'AI embedding pipeline (FashionSigLIP, 768-dim) with automated background removal and pgvector cosine similarity search for fast, accurate matching',
-      'Automated wardrobe analysis: users upload clothes they own, and an AI-derived style profile (aesthetic, colors, garments, keywords) personalizes recommendations',
-      'Next.js 15 web app and companion Expo/React Native mobile app sharing a typed API client and Zod schemas via a Turborepo monorepo',
-      'Product ingestion pipelines pull catalogs from affiliate networks (Apify, Commission Junction) with Claude-powered product enrichment',
+      'Upload a photo of a clothing item you like and instantly find visually similar pieces for sale across the web — no more endless scrolling trying to track down "that outfit"',
+      'Build a wardrobe profile from clothes you already own so recommendations match your actual style, not just generic trends',
+      'Available as both a website and a companion mobile app, so you can shop for matches wherever inspiration strikes',
+      'Under the hood, uses AI-powered image recognition to compare garments by color, cut, and style rather than by keyword, matching them against real product listings from retail partners',
     ],
     tags: ['Next.js', 'FastAPI', 'AI/ML', 'Supabase'],
     link: 'https://style-scout-web.vercel.app/wardrobe',
@@ -42,11 +41,10 @@ const projects = [
   {
     title: 'Behavioral Experiment Platform',
     bullets: [
-      'Web-based behavioral psychology tool implementing a 4-phase BABA (Baseline-Alternative-Baseline-Alternative) reinforcement schedule design',
-      'Interactive 5x5 grid interface where participants choose between two options, with configurable reinforcement delay (0-10s) to study effects on response patterns',
-      'Dual-stream data logging captures discrete click events and continuous state snapshots for fine-grained behavioral analysis',
-      'Consent flow, instructions screen, and admin dashboard for monitoring session stats, traffic allocation, and data exports',
-      'Built with Next.js App Router and TypeScript, deployed on Vercel with environment-based test/production configuration',
+      'An interactive web experiment studying how the timing of rewards changes people\'s behavior — a classic idea from behavioral psychology called reinforcement scheduling',
+      'Participants choose between two on-screen options across several rounds, sometimes getting feedback right away and sometimes after a short delay, to see how that timing shapes their decisions',
+      'Includes a full consent and instructions flow so participants know what to expect, plus an admin view for tracking how the study is progressing',
+      'Built as a Next.js/TypeScript web app so it runs in any browser with no installs required',
     ],
     tags: ['Next.js', 'TypeScript', 'Research'],
     gallery: [behavioralExperimentImage]
