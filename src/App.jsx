@@ -196,9 +196,9 @@ export default function Portfolio() {
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       {/* Simple Top Navigation */}
       <nav className="fixed top-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur z-50 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <a href="#" className="text-lg font-medium tracking-tight">Yazan Alatrach</a>
-          <div className="flex gap-8 text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center gap-3">
+          <a href="#" className="max-[379px]:hidden text-sm sm:text-lg font-medium tracking-tight whitespace-nowrap">Yazan Alatrach</a>
+          <div className="flex items-center gap-2.5 sm:gap-8 ml-auto text-xs sm:text-sm">
             <button onClick={() => scrollToSection('projects')} className={`hover:opacity-60 transition relative ${activeSection === 'projects' ? 'after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-500' : ''
               }`}
             >Projects</button>
@@ -214,7 +214,8 @@ export default function Portfolio() {
 
             <button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition"
+              aria-label="Toggle dark mode"
+              className="p-1 sm:p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition"
             >
               {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
@@ -300,7 +301,7 @@ export default function Portfolio() {
                   )}
 
                   {/* Project info with description and button side-by-side */}
-                  <div className="flex items-start justify-between gap-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
                     <div className="flex-1 space-y-3">
                       {project.bullets ? (
                         <ul className="text-gray-600 dark:text-gray-400 space-y-1.5 list-disc list-inside">
@@ -311,7 +312,7 @@ export default function Portfolio() {
                       ) : (
                         <p className="text-gray-600 dark:text-gray-400">{project.description}</p>
                       )}
-                      <div className="flex gap-3">
+                      <div className="flex flex-wrap gap-3">
                         {project.tags.map((tag, i) => (
                           <span key={i} className="text-xs px-3 py-1 rounded-full transition-all duration-200 hover:scale-110 hover:shadow-lg cursor-default"
                             style={{
