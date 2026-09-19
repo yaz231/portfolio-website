@@ -11,8 +11,8 @@
 **Notes**: Instructs Claude to always update documentation before making code changes and to use GitHub access instead of asking users for file contents.
 
 ### `README.md`
-**Purpose**: README file describing a React + Vite project template and setup instructions for a portfolio website.
-**Notes**: Standard Vite React template boilerplate README with no actual code; mentions optional ESLint/TypeScript and React Compiler setup.
+**Purpose**: Project README describing the portfolio site, its stack, and dev/build/lint commands.
+**Notes**: Points to `src/App.jsx` for content and `public/Resume.pdf` for the resume.
 
 ### `eslint.config.js`
 **Purpose**: Configures ESLint rules and plugins for linting JavaScript/JSX files in the project.
@@ -37,7 +37,7 @@
 ### `tailwind.config.js`
 **Purpose**: Tailwind CSS configuration defining content sources, dark mode strategy, and custom animations/keyframes for the project.
 **Key exports**: `default config object`
-**Notes**: Uses class-based dark mode and scans src files for Tailwind classes; defines custom 'gradient' and 'ripple' animations but 'ripple' keyframes are missing from the keyframes object.
+**Notes**: Uses class-based dark mode and scans src files for Tailwind classes; defines a custom 'gradient' animation.
 
 ### `vite.config.js`
 **Purpose**: Configures Vite build tool to use the React plugin for the project.
@@ -63,21 +63,6 @@
 **Key exports**: `ExpandableGallery`
 **Notes**: Single-image case renders a simple hover-to-unzoom treatment; multi-image case grows the active thumbnail's flex-basis while shrinking the others, with a CSS transition.
 
-### `src/components/FloatingInput.jsx`
-**Purpose**: Renders a text input with an animated floating label that shifts up when focused or filled
-**Key exports**: `FloatingInput`
-**Notes**: Label position is controlled by both local focus state and the presence of a value, allowing the label to stay floated when input has content but is unfocused
-
-### `src/components/RippleButton.jsx`
-**Purpose**: A button component that renders an animated ripple effect emanating from the click position.
-**Key exports**: `RippleButton`
-**Notes**: Ripple IDs use Date.now() which could collide on rapid clicks, and ripples are removed via setTimeout(600ms) matching the CSS animate-ripple duration.
-
-### `src/components/SkillsChart.jsx`
-**Purpose**: Renders an interactive skills chart component with category tabs and animated progress bars showing skill proficiency levels.
-**Key exports**: `SkillsChart`
-**Notes**: Contains an unused 'skillCategories' object that appears to be dead code or leftover from a previous implementation.
-
 ### `src/components/VoCDiagram.jsx`
 **Purpose**: Renders an animated SVG diagram illustrating a Voice of Customer data pipeline from call transcripts/emails through ingestion and Gemini API to a generated PDF report.
 **Key exports**: `VoCDiagram`
@@ -91,10 +76,10 @@
 ### `src/hooks/useDarkMode.js`
 **Purpose**: Custom React hook that manages dark mode state and toggles a 'dark' CSS class on the document root element.
 **Key exports**: `useDarkMode`
-**Notes**: State does not persist across page reloads (no localStorage or system preference sync).
+**Notes**: Initial state reads localStorage `theme` if set, else falls back to `matchMedia('(prefers-color-scheme: dark)')`; persists to localStorage on change, with localStorage access wrapped in try/catch.
 
 ### `src/main.jsx`
-**Purpose**: Entry point that mounts the React App component into the DOM using React 18's createRoot API.
+**Purpose**: Entry point that mounts the React App component into the DOM using React's createRoot API (React 19).
 **Depends on**: `./App.jsx`, `./index.css`
 **Notes**: Wraps App in React.StrictMode for highlighting potential issues during development.
 

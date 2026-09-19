@@ -9,7 +9,6 @@ import brewscout1 from './assets/images/projects/brewscout-1.png';
 import brewscout2 from './assets/images/projects/brewscout-2.png';
 import brewscout3 from './assets/images/projects/brewscout-3.png';
 import saveseweidaImage from './assets/images/projects/savesweida.png';
-import financialAnalyzerImage from './assets/images/projects/financial-analyzer.png';
 import stylescout1 from './assets/images/projects/stylescout-1.png';
 import stylescout2 from './assets/images/projects/stylescout-2.png';
 import stylescout3 from './assets/images/projects/stylescout-3.png';
@@ -48,13 +47,6 @@ const projects = [
     ],
     tags: ['Next.js', 'TypeScript', 'Research'],
     gallery: [behavioralExperimentImage]
-  },
-  {
-    title: 'Financial Analyzer',
-    description: 'A financial comparison tool that analyzes three investment strategies—buying to live, buying to rent, or investing in stocks—through dynamic visualizations and customizable parameters. The app provides net worth projections, break-even analysis, and monthly payment breakdowns to help users make data-driven investment decisions.',
-    tags: ['React', 'Data Visualization', 'Finance'],
-    link: 'https://financial-analyzer-lac.vercel.app',
-    image: financialAnalyzerImage
   },
   {
     title: 'BrewScout',
@@ -123,7 +115,7 @@ export default function Portfolio() {
     email: '',
     message: ''
   });
-  const [formStatus, setFormStatus] = useState('');
+  const [formStatus, setFormStatus] = useState({ text: '', type: 'neutral' });
   const [isDark, setIsDark] = useDarkMode();
   const activeSection = useActiveSection();
 
@@ -132,7 +124,7 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
+      const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
       setScrollProgress(progress);
     };
 
@@ -142,7 +134,7 @@ export default function Portfolio() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormStatus('Sending...');
+    setFormStatus({ text: 'Sending...', type: 'neutral' });
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -157,16 +149,16 @@ export default function Portfolio() {
       });
 
       if (response.ok) {
-        setFormStatus('Thanks for reaching out! I\'ll get back to you soon.');
+        setFormStatus({ text: 'Thanks for reaching out! I\'ll get back to you soon.', type: 'success' });
         setFormData({ name: '', email: '', message: '' });
       } else {
-        setFormStatus('Something went wrong. Please try again.');
+        setFormStatus({ text: 'Something went wrong. Please try again.', type: 'error' });
       }
-    } catch (error) {
-      setFormStatus('Failed to send. Please email me directly.');
+    } catch {
+      setFormStatus({ text: 'Failed to send. Please email me directly.', type: 'error' });
     }
 
-    setTimeout(() => setFormStatus(''), 5000);
+    setTimeout(() => setFormStatus({ text: '', type: 'neutral' }), 5000);
   };
 
   const handleChange = (e) => {
@@ -191,7 +183,7 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
       {/* Simple Top Navigation */}
-      <nav className="fixed top-0 w-full bg-white dark:bg-gray-900/95 backdrop-blur z-50 py-6">
+      <nav className="fixed top-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur z-50 py-6">
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <a href="#" className="text-lg font-medium tracking-tight">Yazan Alatrach</a>
           <div className="flex gap-8 text-sm">
@@ -216,11 +208,11 @@ export default function Portfolio() {
             </button>
           </div>
         </div>
-      </nav>
 
-      <div className="absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300"
-        style={{ width: `${scrollProgress}%` }}
-      ></div>
+        <div className="absolute bottom-0 left-0 h-[2px] bg-blue-500 transition-all duration-300"
+          style={{ width: `${scrollProgress}%` }}
+        ></div>
+      </nav>
 
       {/* Hero Section - Very Spacious */}
       <section className="min-h-screen flex items-center justify-center px-6">
@@ -299,13 +291,13 @@ export default function Portfolio() {
                   <div className="flex items-start justify-between gap-6">
                     <div className="flex-1 space-y-3">
                       {project.bullets ? (
-                        <ul className="text-gray-600 space-y-1.5 list-disc list-inside">
+                        <ul className="text-gray-600 dark:text-gray-400 space-y-1.5 list-disc list-inside">
                           {project.bullets.map((bullet, i) => (
                             <li key={i}>{bullet}</li>
                           ))}
                         </ul>
                       ) : (
-                        <p className="text-gray-600">{project.description}</p>
+                        <p className="text-gray-600 dark:text-gray-400">{project.description}</p>
                       )}
                       <div className="flex gap-3">
                         {project.tags.map((tag, i) => (
@@ -412,18 +404,18 @@ export default function Portfolio() {
               <div className="flex justify-between items-start">
                 <div>
                   <p className="font-medium">Georgia Institute of Technology</p>
-                  <p className="text-gray-600">Master of Science in Computer Science</p>
+                  <p className="text-gray-600 dark:text-gray-400">Master of Science in Computer Science</p>
                 </div>
-                <p className="text-sm text-gray-500">2025</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">2025</p>
               </div>
             </div>
             <div>
               <div className="flex justify-between items-start">
                 <div>
                   <p className="font-medium">The University of Texas at Austin</p>
-                  <p className="text-gray-600">Bachelor of Science in Electrical & Computer Engineering</p>
+                  <p className="text-gray-600 dark:text-gray-400">Bachelor of Science in Electrical & Computer Engineering</p>
                 </div>
-                <p className="text-sm text-gray-500">2019</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">2019</p>
               </div>
             </div>
           </div>
@@ -434,13 +426,13 @@ export default function Portfolio() {
           <h3 className="text-2xl font-light tracking-tight">Experience</h3>
 
           {/* Octopus Energy */}
-          <div className="space-y-3 pb-6 border-b border-gray-200">
+          <div className="space-y-3 pb-6 border-b border-gray-200 dark:border-gray-700">
             <div className="flex justify-between items-start flex-wrap gap-2">
               <div>
                 <p className="font-medium">Senior Data Engineer</p>
-                <p className="text-gray-600">Octopus Energy</p>
+                <p className="text-gray-600 dark:text-gray-400">Octopus Energy</p>
               </div>
-              <p className="text-sm text-gray-500">Sep 2024 - Present</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Sep 2024 - Present</p>
             </div>
             <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
               <li>Owned reliability and observability for 10+ production data pipelines on AWS, implementing SLA-based alerting, data freshness monitoring, and automated failure recovery—ensuring business-critical energy trading systems met uptime requirements across international regions</li>
@@ -465,13 +457,13 @@ export default function Portfolio() {
           </div>
 
           {/* Capital One */}
-          <div className="space-y-3 pb-6 border-b border-gray-200">
+          <div className="space-y-3 pb-6 border-b border-gray-200 dark:border-gray-700">
             <div className="flex justify-between items-start flex-wrap gap-2">
               <div>
                 <p className="font-medium">Senior Data Engineer</p>
-                <p className="text-gray-600">Capital One</p>
+                <p className="text-gray-600 dark:text-gray-400">Capital One</p>
               </div>
-              <p className="text-sm text-gray-500">Aug 2021 - May 2023</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Aug 2021 - May 2023</p>
             </div>
             <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
               <li>Built transformation layer data models in SQL and Snowflake supporting daily operational metrics and historical trend analysis for finance and operations stakeholders</li>
@@ -498,9 +490,9 @@ export default function Portfolio() {
             <div className="flex justify-between items-start flex-wrap gap-2">
               <div>
                 <p className="font-medium">Network Engineer</p>
-                <p className="text-gray-600">Cisco Systems</p>
+                <p className="text-gray-600 dark:text-gray-400">Cisco Systems</p>
               </div>
-              <p className="text-sm text-gray-500">Jun 2019 - Aug 2021</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Jun 2019 - Aug 2021</p>
             </div>
             <ul className="text-gray-700 dark:text-gray-300 space-y-2 list-disc list-inside">
               <li>Built Python and Jenkins-based automated testing suite for VoIP feature verification, reducing testing duration from 15 hours to 2 hours per release cycle</li>
@@ -530,7 +522,7 @@ export default function Portfolio() {
         <div className="max-w-3xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight">Resume</h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
               Download my resume to learn more about my experience and qualifications.
             </p>
           </div>
@@ -564,45 +556,48 @@ export default function Portfolio() {
         <div className="max-w-2xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight ">Get in touch</h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
               Have a project in mind or just want to chat? I'd love to hear from you.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6 pt-8">
             <div className="space-y-2">
-              <label htmlFor="name" className="block text-sm text-gray-600">Name</label>
+              <label htmlFor="name" className="block text-sm text-gray-600 dark:text-gray-400">Name</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-0 py-3 border-0 border-b border-gray-300 focus:border-gray-900 focus:ring-0 outline-none bg-transparent transition"
+                required
+                className="w-full px-0 py-3 border-0 border-b border-gray-300 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white focus:ring-0 outline-none bg-transparent transition"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm text-gray-600">Email</label>
+              <label htmlFor="email" className="block text-sm text-gray-600 dark:text-gray-400">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-0 py-3 border-0 border-b border-gray-300 focus:border-gray-900 focus:ring-0 outline-none bg-transparent transition"
+                required
+                className="w-full px-0 py-3 border-0 border-b border-gray-300 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white focus:ring-0 outline-none bg-transparent transition"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="message" className="block text-sm text-gray-600">Message</label>
+              <label htmlFor="message" className="block text-sm text-gray-600 dark:text-gray-400">Message</label>
               <textarea
                 id="message"
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
                 rows={5}
-                className="w-full px-0 py-3 border-0 border-b border-gray-300 focus:border-gray-900 focus:ring-0 outline-none bg-transparent resize-none transition"
+                required
+                className="w-full px-0 py-3 border-0 border-b border-gray-300 dark:border-gray-700 focus:border-gray-900 dark:focus:border-white focus:ring-0 outline-none bg-transparent resize-none transition"
               />
             </div>
 
@@ -616,17 +611,18 @@ export default function Portfolio() {
               </button>
             </div>
 
-            {formStatus && (
-              <p className="text-center text-green-600 text-sm pt-4">{formStatus}</p>
+            {formStatus.text && (
+              <p className={`text-center text-sm pt-4 ${formStatus.type === 'success' ? 'text-green-600' : formStatus.type === 'error' ? 'text-red-600' : 'text-gray-500 dark:text-gray-400'
+                }`}>{formStatus.text}</p>
             )}
           </form>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-gray-200">
+      <footer className="py-12 px-6 border-t border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">© 2025 Yazan Alatrach</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">© {new Date().getFullYear()} Yazan Alatrach</p>
           <div className="flex gap-6">
             <a href="https://www.linkedin.com/in/yazan-alatrach-98001b118/" target="_blank" rel="noopener noreferrer"
               className="text-sm text-gray-500 hover:text-gray-900 dark:text-white transition">LinkedIn</a>

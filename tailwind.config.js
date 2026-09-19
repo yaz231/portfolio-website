@@ -8,7 +8,6 @@ export default {
     extend: {
       animation: {
         'gradient': 'gradient 3s ease infinite',
-        'ripple': 'ripple 600ms ease-out',
       },
       keyframes: {
         'gradient': {

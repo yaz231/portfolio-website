@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+.claude/settings.local.json
+.claude/scratch/
+.codegraph/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
