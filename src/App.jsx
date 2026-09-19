@@ -14,6 +14,9 @@ import stylescout2 from './assets/images/projects/stylescout-2.png';
 import stylescout3 from './assets/images/projects/stylescout-3.png';
 import behavioralExperimentImage from './assets/images/projects/behavioral-experiment-1.png';
 import { VoCDiagram } from './components/VoCDiagram';
+import { DataInfraDiagram } from './components/DataInfraDiagram';
+import { FinModelsDiagram } from './components/FinModelsDiagram';
+import { VoipTestDiagram } from './components/VoipTestDiagram';
 import { ExpandableGallery } from './components/ExpandableGallery';
 
 
@@ -69,21 +72,30 @@ const workHighlights = [
     title: 'Voice of Customer Pipeline',
     description: 'Fully automated pipeline ingesting hundreds of call transcripts and emails weekly through a structured Gemini LLM workflow, delivering executive-ready PDF reports that replaced 83 hours of manual work per week.',
     tech: ['Python', 'Gemini LLM', 'Airflow', 'APIs'],
-    graphic: <VoCDiagram />
+    graphic: <VoCDiagram />,
+    fullWidth: true
   },
   {
     title: 'Automated Data Infrastructure',
     description: '10+ production data pipelines processing millions of daily events, enabling multi-million dollar trading decisions',
-    tech: ['Python', 'Airflow', 'AWS', 'dbt']
+    tech: ['Python', 'Airflow', 'AWS', 'dbt'],
+    graphic: <DataInfraDiagram />
   },
   {
     title: 'Financial Data Models',
     description: 'Transformation layer achieving cent-level precision for international financial reporting',
-    tech: ['dbt', 'SQL', 'Snowflake']
+    tech: ['dbt', 'SQL', 'Snowflake'],
+    graphic: <FinModelsDiagram />
+  },
+  {
+    title: 'Automated VoIP Test Suite',
+    description: 'Python and Jenkins-based automated testing suite for VoIP feature verification at Cisco, cutting testing time from 15 hours to 2 hours per release cycle.',
+    tech: ['Python', 'Jenkins', 'VoIP', 'Webex'],
+    graphic: <VoipTestDiagram />
   }
 ];
 
-const FadeInSection = ({ children }) => {
+const FadeInSection = ({ children, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef();
 
@@ -101,7 +113,7 @@ const FadeInSection = ({ children }) => {
     <div
       ref={ref}
       className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
+        } ${className}`}
     >
       {children}
     </div>
@@ -343,10 +355,10 @@ export default function Portfolio() {
           <p className="text-center text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto">
             Selected highlights from my professional experience building production data systems
           </p>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {workHighlights.map((highlight, index) => (
-              <FadeInSection key={index}>
-                <div className={`p-6 bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 ${highlight.graphic ? 'md:col-span-3' : ''}`}>
+              <FadeInSection key={index} className={highlight.fullWidth ? 'md:col-span-2' : ''}>
+                <div className="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 h-full">
                   <h3 className="text-xl font-semibold mb-3">{highlight.title}</h3>
                   {highlight.graphic && (
                     <div className="mb-4">{highlight.graphic}</div>

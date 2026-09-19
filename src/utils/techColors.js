@@ -22,4 +22,6 @@ export const techColors = {
   'FastAPI': { bg: '#009688', text: 'white' },
   'AI/ML': { bg: '#8B5CF6', text: 'white' },
   'Research': { bg: '#EC4899', text: 'white' },
+  'VoIP': { bg: '#6366F1', text: 'white' },
+  'Webex': { bg: '#07C3F2', text: 'black' },
 };

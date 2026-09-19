@@ -55,8 +55,8 @@
 ### `src/App.jsx`
 **Purpose**: Main React component rendering a single-page portfolio site with hero, projects, about, resume, and contact sections.
 **Key exports**: `Portfolio (default export)`, `FadeInSection`, `projects`, `workHighlights`
-**Depends on**: `./hooks/useDarkMode`, `./hooks/useActiveSection`, `./utils/techColors`, `./components/VoCDiagram`, `./components/ExpandableGallery`
-**Notes**: Contains hardcoded project/work data and image imports, uses IntersectionObserver for scroll animations, and submits contact form data to an external Web3Forms API with a hardcoded access key. Project entries support either a plain `description` string or a `bullets` array (rendered as a bullet list); image display supports `graphic` (custom component), `gallery` (hover/tap-to-expand screenshot row via `ExpandableGallery`), `images` (fixed-height side-by-side, for phone screenshots), or a single `image`.
+**Depends on**: `./hooks/useDarkMode`, `./hooks/useActiveSection`, `./utils/techColors`, `./components/VoCDiagram`, `./components/DataInfraDiagram`, `./components/FinModelsDiagram`, `./components/VoipTestDiagram`, `./components/ExpandableGallery`
+**Notes**: Contains hardcoded project/work data and image imports, uses IntersectionObserver for scroll animations, and submits contact form data to an external Web3Forms API with a hardcoded access key. Project entries support either a plain `description` string or a `bullets` array (rendered as a bullet list); image display supports `graphic` (custom component), `gallery` (hover/tap-to-expand screenshot row via `ExpandableGallery`), `images` (fixed-height side-by-side, for phone screenshots), or a single `image`. `workHighlights` has 4 entries (VoC, Data Infra, Fin Models, Cisco VoIP) rendered in a `md:grid-cols-2` grid via `FadeInSection` (accepts an optional `className` prop); only the VoC entry sets `fullWidth: true`, which applies `md:col-span-2` to the grid item.
 
 ### `src/components/ExpandableGallery.jsx`
 **Purpose**: Renders a row of project screenshots that start zoomed/cropped and expand to show the full image on hover (desktop) or tap (touch devices, detected via `matchMedia('(hover: hover)')`).
@@ -66,7 +66,22 @@
 ### `src/components/VoCDiagram.jsx`
 **Purpose**: Renders an animated SVG diagram illustrating a Voice of Customer data pipeline from call transcripts/emails through ingestion and Gemini API to a generated PDF report.
 **Key exports**: `VoCDiagram`
-**Notes**: Uses inline CSS keyframe animations and SVG filters/markers to animate flow arrows and pulsing/shimmering effects; purely presentational with no props or state.
+**Notes**: Uses inline CSS keyframe animations and SVG filters/markers to animate flow arrows and pulsing/shimmering effects; purely presentational with no props or state. Style reference for the other work-highlight diagrams (`vp*`/`voc-*` prefixed classes/ids).
+
+### `src/components/DataInfraDiagram.jsx`
+**Purpose**: Renders an animated SVG diagram of the automated data-infrastructure pipeline (Yes Energy, Amperon, Meteologica, Habitat Energy, Kraken, ERCOT sources into Airflow DAGs, S3 Data Lake, dbt, and a Trading Decisions output), with a looping DAG-failure/recovery animation and an SLA/freshness monitor.
+**Key exports**: `DataInfraDiagram`
+**Notes**: Matches `VoCDiagram` styling (GitHub-dark palette, monospace, inline `<style>` keyframes); all classes/ids/keyframes use an `infra-` prefix to avoid collisions with the other diagrams. No props or state.
+
+### `src/components/FinModelsDiagram.jsx`
+**Purpose**: Renders an animated SVG dbt lineage diagram (Sources → Staging → Intermediate → Marts) for the financial data models highlight, with flowing edges and a reconciliation readout that settles to `Δ $0.00`.
+**Key exports**: `FinModelsDiagram`
+**Notes**: Matches `VoCDiagram` styling; all classes/ids/keyframes use a `fin-` prefix. No props or state.
+
+### `src/components/VoipTestDiagram.jsx`
+**Purpose**: Renders an animated SVG diagram of the Cisco automated VoIP test suite (Jenkins trigger → Python test runner → device tiles turning green in sequence, a SIP call-flow ladder, and a 15h→2h before/after bar).
+**Key exports**: `VoipTestDiagram`
+**Notes**: Matches `VoCDiagram` styling; all classes/ids/keyframes use a `voip-` prefix. No props or state.
 
 ### `src/hooks/useActiveSection.js`
 **Purpose**: Custom React hook that tracks which section of the page is currently in view using the IntersectionObserver API.
@@ -86,4 +101,4 @@
 ### `src/utils/techColors.js`
 **Purpose**: Defines a mapping of technology names to their brand colors (background and text) for consistent UI styling.
 **Key exports**: `techColors`
-**Notes**: Static config object used likely for rendering tech badges/tags with brand-accurate colors.
+**Notes**: Static config object used likely for rendering tech badges/tags with brand-accurate colors. Includes `VoIP` and `Webex` entries for the Cisco work-highlight card.
